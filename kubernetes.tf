@@ -10,9 +10,24 @@ provider "kubernetes" {
   config_path = "~/.kube/config"
 }
 
+resource "kubernetes_namespace" "terraform-demo" {
+  metadata {
+    annotations = {
+      name = "terraform-demo"
+    }
+
+    labels = {
+      mylabel = "terraform-demo"
+    }
+
+    name = "terraform-demo"
+  }
+}
+
 resource "kubernetes_deployment" "nginx" {
   metadata {
     name = "scalable-nginx-example"
+    namespace= "terraform-demo"
     labels = {
       App = "ScalableNginxExample"
     }
