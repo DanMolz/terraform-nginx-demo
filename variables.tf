@@ -7,5 +7,5 @@ variable "nginx_port" {
 variable "image_tag" {
   description = "The image that will be used in the application"
   type        = string
-  default     = nginx:1.7.8
+  default     = "nginx:1.7.8"
 }
