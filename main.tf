@@ -17,7 +17,7 @@ resource "kubernetes_namespace" "terraform-demo" {
     }
 
     labels = {
-      mylabel = "terraform-demo"
+      app = "terraform-demo"
     }
 
     name = "terraform-demo"
@@ -29,7 +29,7 @@ resource "kubernetes_deployment" "nginx" {
     name = "scalable-nginx-example"
     namespace= "terraform-demo"
     labels = {
-      App = "ScalableNginxExample"
+      app = "ScalableNginxExample"
     }
   }
 
@@ -37,19 +37,19 @@ resource "kubernetes_deployment" "nginx" {
     replicas = 2
     selector {
       match_labels = {
-        App = "ScalableNginxExample"
+        app = "ScalableNginxExample"
       }
     }
     template {
       metadata {
         labels = {
-          App = "ScalableNginxExample"
+          app = "ScalableNginxExample"
         }
       }
       spec {
         container {
           image = var.image_tag
-          name  = "example"
+          name  = "nginx-example"
 
           port {
             container_port = var.nginx_port
