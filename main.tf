@@ -10,26 +10,26 @@ provider "kubernetes" {
   config_path = "~/.kube/config"
 }
 
-resource "kubernetes_namespace" "terraform-demo" {
+resource "kubernetes_namespace" "terraform-demo-nginx" {
   metadata {
     annotations = {
-      name = "terraform-demo"
+      name = "terraform-demo-nginx"
     }
 
     labels = {
-      app = "terraform-demo"
+      app = "terraform-demo-nginx"
     }
 
-    name = "terraform-demo"
+    name = "terraform-demo-nginx"
   }
 }
 
-resource "kubernetes_deployment" "nginx" {
+resource "kubernetes_deployment" "terraform-demo-nginx" {
   metadata {
-    name = "scalable-nginx-example"
-    namespace= "terraform-demo"
+    name = "terraform-demo-nginx"
+    namespace= "terraform-demo-nginx"
     labels = {
-      app = "ScalableNginxExample"
+      app = "terraform-demo-nginx"
     }
   }
 
@@ -37,19 +37,19 @@ resource "kubernetes_deployment" "nginx" {
     replicas = 2
     selector {
       match_labels = {
-        app = "ScalableNginxExample"
+        app = "terraform-demo-nginx"
       }
     }
     template {
       metadata {
         labels = {
-          app = "ScalableNginxExample"
+          app = "terraform-demo-nginx"
         }
       }
       spec {
         container {
           image = var.image_tag
-          name  = "nginx-example"
+          name  = "terraform-demo-nginx"
 
           port {
             container_port = var.nginx_port
@@ -70,9 +70,9 @@ resource "kubernetes_deployment" "nginx" {
     }
   }
 }
-resource "kubernetes_service" "nginx" {
+resource "kubernetes_service" "terraform-demo-nginx" {
   metadata {
-    name      = "nginx"
+    name      = "terraform-demo-nginx"
     namespace = kubernetes_namespace.terraform-demo.metadata.0.name
   }
   spec {
