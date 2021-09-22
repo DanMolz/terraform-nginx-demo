@@ -73,11 +73,11 @@ resource "kubernetes_deployment" "terraform-demo-nginx" {
 resource "kubernetes_service" "terraform-demo-nginx" {
   metadata {
     name      = "terraform-demo-nginx"
-    namespace = kubernetes_namespace.terraform-demo.metadata.0.name
+    namespace = kubernetes_namespace.terraform-demo-nginx.metadata.0.name
   }
   spec {
     selector = {
-      app = kubernetes_deployment.nginx.spec.0.template.0.metadata.0.labels.app
+      app = kubernetes_deployment.terraform-demo-nginx.spec.0.template.0.metadata.0.labels.app
     }
     type = "LoadBalancer"
     port {
