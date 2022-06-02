@@ -1,3 +1,4 @@
 # terraform-nginx-demo
 
-run - terraform apply -var-file ./modules/terraform.tfvars
+terraform init
+terraform apply -var-file ./modules/terraform.tfvars
